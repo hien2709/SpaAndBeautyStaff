@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:spa_and_beauty_staff/Staff/bottom_navigation/bottom_navigation.dart';
 import 'package:spa_and_beauty_staff/Staff/home/home_screen.dart';
-import 'package:spa_and_beauty_staff/routs.dart';
+import 'file:///E:/NewCapstoneProject/SpaAndBeautyStaff/spa_and_beauty_staff/lib/Staff/home/routs.dart';
 import 'package:spa_and_beauty_staff/theme.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Spa, Beauty Staff',
       theme: theme(),
       // home: SplashScreen()
-      initialRoute: HomeScreen.routeName,
+      initialRoute: BottomNavigation.routeName,
       routes: routes,
     );
   }
