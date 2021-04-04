@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spa_and_beauty_staff/Staff/chat/chat_screen.dart';
 import 'package:spa_and_beauty_staff/Staff/home/home_screen.dart';
 import 'package:spa_and_beauty_staff/Staff/notification/notification_screen.dart';
 import 'package:spa_and_beauty_staff/constants.dart';
@@ -14,7 +15,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int selectedIndex = 0;
   List<Widget> widgetOptions = <Widget>[
     HomeScreen(),
-    StaffNotification(),
+    ChatScreen(),
   ];
 
   void  onBottomNavigationItemSelect(int index){
@@ -45,9 +46,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.calendar_today,
+              Icons.chat,
             ),
-            title: Text("Lịch hẹn"),
+            title: Text("Chat"),
           ),
           BottomNavigationBarItem(
             icon: Icon(
