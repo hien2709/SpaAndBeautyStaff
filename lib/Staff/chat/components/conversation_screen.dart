@@ -124,32 +124,34 @@ class MessageTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-          left: isSendByMe ? 0 : 24, right: isSendByMe ? 24 : 0),
-      margin: EdgeInsets.symmetric(vertical: 10),
-      width: MediaQuery.of(context).size.width,
-      alignment: isSendByMe ? Alignment.centerRight : Alignment.centerLeft,
+    return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-        decoration: BoxDecoration(
-          color: isSendByMe ? Color(0xff0084ff) : Colors.grey.shade200,
-          borderRadius: isSendByMe
-              ? BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                )
-              : BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-        ),
-        child: Text(
-          message,
-          style: TextStyle(
-            color: isSendByMe ? Colors.white : Colors.black,
+        padding: EdgeInsets.only(
+            left: isSendByMe ? 0 : 24, right: isSendByMe ? 24 : 0),
+        margin: EdgeInsets.symmetric(vertical: 10),
+        width: MediaQuery.of(context).size.width,
+        alignment: isSendByMe ? Alignment.centerRight : Alignment.centerLeft,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+          decoration: BoxDecoration(
+            color: isSendByMe ? Color(0xff0084ff) : Colors.grey.shade200,
+            borderRadius: isSendByMe
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                  )
+                : BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+          ),
+          child: Text(
+            message,
+            style: TextStyle(
+              color: isSendByMe ? Colors.white : Colors.black,
+            ),
           ),
         ),
       ),

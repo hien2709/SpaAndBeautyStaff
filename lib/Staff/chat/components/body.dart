@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:spa_and_beauty_staff/Service/firebase.dart';
 import 'package:spa_and_beauty_staff/main.dart';
@@ -11,7 +12,46 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   FirebaseMethod firebaseMethod = FirebaseMethod();
   Stream chatRoomStream;
+  TextEditingController searchInput = TextEditingController();
+  QuerySnapshot searchResult;
+  bool isSearch = false;
   int staffId;
+
+  initiateSearch() async {
+    if(searchInput.text != ""){
+      await firebaseMethod.getUserByUsername(searchInput.text).then((value) {
+        setState(() {
+          isSearch = true;
+          print("IS SEARCH: $isSearch");
+          searchResult = value;
+        });
+      });
+    }
+    return;
+  }
+
+  Widget searchList() {
+    return searchResult != null
+        ? ListView.builder(
+      shrinkWrap: true,
+      itemCount: searchResult.documents.length,
+      itemBuilder: (context, index) {
+        return ChatCard(
+          customerId: searchResult.documents[index].data["id"],
+          chatRoomId: getChatRoomId(int.parse(searchResult.documents[index].data["id"]), MyApp.storage.getItem("staffId")),
+        );
+      },
+    )
+        : Container();
+  }
+
+  getChatRoomId(int a, int b) {
+    if (a > b) {
+      return "$b\_$a";
+    } else {
+      return "$a\_$b";
+    }
+  }
 
   getChatRoom() async {
     await firebaseMethod
@@ -53,6 +93,7 @@ class _BodyState extends State<Body> {
     getChatRoom();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,13 +123,17 @@ class _BodyState extends State<Body> {
             Padding(
               padding: EdgeInsets.only(top: 16, left: 16, right: 16),
               child: TextField(
+                controller: searchInput,
                 decoration: InputDecoration(
                   hintText: "Search...",
                   hintStyle: TextStyle(color: Colors.grey.shade400),
-                  prefixIcon: Icon(
-                    Icons.search,
+                  prefixIcon: IconButton(
+                    icon: Icon(Icons.search),
                     color: Colors.grey.shade400,
-                    size: 20,
+                    iconSize: 25,
+                    onPressed: (){
+                      initiateSearch();
+                    },
                   ),
                   filled: true,
                   fillColor: Colors.grey.shade100,
@@ -99,7 +144,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            ShowChatRoomList(),
+            isSearch ? searchList() : ShowChatRoomList(),
           ],
         ),
       ),

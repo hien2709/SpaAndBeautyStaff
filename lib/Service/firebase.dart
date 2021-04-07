@@ -47,6 +47,13 @@ class FirebaseMethod{
         .getDocuments();
   }
 
+  getUserByUsername(String username) async {
+    return await Firestore.instance
+        .collection("users")
+        .where("name", isEqualTo: username)
+        .getDocuments();
+  }
+
   uploadUserInfo(userInfoMap) {
     Firestore.instance.collection("users").add(userInfoMap);
   }

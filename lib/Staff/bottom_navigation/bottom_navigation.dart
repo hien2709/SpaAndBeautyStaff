@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:spa_and_beauty_staff/Staff/chat/chat_screen.dart';
+import 'package:spa_and_beauty_staff/Staff/following/following_screen.dart';
 import 'package:spa_and_beauty_staff/Staff/home/home_screen.dart';
 import 'package:spa_and_beauty_staff/Staff/notification/notification_screen.dart';
+import 'package:spa_and_beauty_staff/Staff/staff_profile/profile/profile_screen.dart';
 import 'package:spa_and_beauty_staff/constants.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -16,6 +18,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
   List<Widget> widgetOptions = <Widget>[
     HomeScreen(),
     ChatScreen(),
+    StaffNotification(),
+    FollowingScreen(),
+    // ProfileScreen(),
   ];
 
   void  onBottomNavigationItemSelect(int index){
@@ -52,15 +57,15 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.assignment_outlined,
-            ),
-            title: Text("Theo dõi"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
               Icons.notifications_none_outlined,
             ),
             title: Text("Thông báo"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.assignment_outlined,
+            ),
+            title: Text("Theo dõi"),
           ),
           BottomNavigationBarItem(
             icon: Icon(
