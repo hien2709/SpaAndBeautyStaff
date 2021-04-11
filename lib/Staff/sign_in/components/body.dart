@@ -99,9 +99,7 @@ class _SignFormState extends State<SignForm> {
 
           MyApp.storage.setItem("token", jsonResponse['jsonWebToken']);
           MyApp.storage.setItem("staffId", jsonResponse['idAccount']);
-          Constants.staffId = MyApp.storage.getItem("staffId");
-          print("Staff ID: ${Constants.staffId}");
-
+          print("Staff ID: ${MyApp.storage.getItem("staffId")}");
           widget.isMainLogin
               ? Navigator.pushNamed(context, BottomNavigation.routeName)
               : Navigator.pop(context, );

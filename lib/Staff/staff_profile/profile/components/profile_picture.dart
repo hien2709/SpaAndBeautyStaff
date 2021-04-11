@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:spa_and_beauty_staff/Service/staff_service.dart';
+
+import '../../../../main.dart';
 
 class ProfilePic extends StatefulWidget {
   @override
@@ -22,16 +25,26 @@ class _ProfilePicState extends State<ProfilePic> {
     });
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   CustomerService.getCustomerProfileById().then((customer) => {
-  //     setState(() {
-  //       image = customer.image;
-  //       MyApp.storage.setItem("image", image);
-  //     }),
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    await MyApp.storage.ready;
+    int staffId = await MyApp.storage.getItem("staffId");
+    String staffToken = await MyApp.storage.getItem("token");
+    print("staffId: $staffId");
+    print("token: $staffToken");
+    // StaffService.getStaffProfileById(staffId, staffToken).then((staff) => {
+    //       setState(() {
+    //         image = staff.image;
+    //         MyApp.storage.setItem("image", image);
+    //
+    //       }),
+    //     });
+  }
 
   @override
   Widget build(BuildContext context) {

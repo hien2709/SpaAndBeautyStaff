@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spa_and_beauty_staff/Staff/chat/chat_screen.dart';
 import 'package:spa_and_beauty_staff/Staff/following/following_screen.dart';
-import 'package:spa_and_beauty_staff/Staff/home/home_screen.dart';
 import 'package:spa_and_beauty_staff/Staff/notification/notification_screen.dart';
+import 'package:spa_and_beauty_staff/Staff/schedule/schedule_screen.dart';
 import 'package:spa_and_beauty_staff/Staff/staff_profile/profile/profile_screen.dart';
 import 'package:spa_and_beauty_staff/constants.dart';
 
@@ -16,17 +16,16 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   int selectedIndex = 0;
   List<Widget> widgetOptions = <Widget>[
-    HomeScreen(),
+    Schedule(),
     ChatScreen(),
     StaffNotification(),
     FollowingScreen(),
-    // ProfileScreen(),
+    ProfileScreen(),
   ];
 
   void  onBottomNavigationItemSelect(int index){
     setState(() {
       selectedIndex = index;
-
     });
   }
 
@@ -45,9 +44,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home,
+              Icons.calendar_today_outlined,
             ),
-            title: Text("Trang chủ"),
+            title: Text("Schedule"),
           ),
           BottomNavigationBarItem(
             icon: Icon(

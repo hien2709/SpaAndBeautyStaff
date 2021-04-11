@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:spa_and_beauty_staff/Service/firebase.dart';
-import 'package:spa_and_beauty_staff/main.dart';
+import 'package:spa_and_beauty_staff/Staff/chat/components/staff.dart';
+import '../../../main.dart';
 import 'chat_card.dart';
 
 class Body extends StatefulWidget {
@@ -16,6 +17,14 @@ class _BodyState extends State<Body> {
   QuerySnapshot searchResult;
   bool isSearch = false;
   int staffId;
+
+  getData() async{
+    await MyApp.storage.ready;
+    staffId = MyApp.storage.getItem("staffId");
+    getChatRoom();
+    print("StaffID: $staffId");
+  }
+
 
   initiateSearch() async {
     if(searchInput.text != ""){
@@ -55,17 +64,15 @@ class _BodyState extends State<Body> {
 
   getChatRoom() async {
     await firebaseMethod
-        .getChatRoomStream(MyApp.storage.getItem("staffId"))
+        .getChatRoomStream(staffId)
         .then((value) {
       setState(() {
         chatRoomStream = value;
-        staffId = MyApp.storage.getItem("staffId");
-        print("Staff Id: $staffId");
       });
     });
   }
 
-  Widget ShowChatRoomList() {
+  Widget showChatRoomList() {
     return StreamBuilder(
       stream: chatRoomStream,
       builder: (context, snapshot) {
@@ -90,7 +97,8 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    getChatRoom();
+    getData();
+
   }
 
 
@@ -144,7 +152,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            isSearch ? searchList() : ShowChatRoomList(),
+            isSearch ? searchList() : showChatRoomList(),
           ],
         ),
       ),

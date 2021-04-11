@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spa_and_beauty_staff/Service/firebase.dart';
+import 'package:spa_and_beauty_staff/Staff/chat/components/staff.dart';
 
 import '../../../main.dart';
 import 'conversation_appBar.dart';
@@ -20,6 +21,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
   FirebaseMethod firebaseMethod = FirebaseMethod();
   TextEditingController messageInput = TextEditingController();
   Stream chatMessageStream;
+  int staffId;
+
 
   Widget ChatMessageList() {
     return StreamBuilder(
@@ -32,7 +35,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                   return MessageTitle(
                       snapshot.data.documents[index].data["message"],
                       snapshot.data.documents[index].data["sendBy"] ==
-                          MyApp.storage.getItem("staffId"));
+                          staffId);
                 },
               )
             : Container();
@@ -44,7 +47,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
     if (messageInput.text.isNotEmpty) {
       Map<String, dynamic> messageMap = {
         "message": messageInput.text,
-        "sendBy": MyApp.storage.getItem("staffId"),
+        "sendBy": staffId,
         "time": DateTime.now().millisecondsSinceEpoch
       };
       firebaseMethod.addConversationMessage(widget.chatRoomId, messageMap);
@@ -60,6 +63,11 @@ class _ConversationScreenState extends State<ConversationScreen> {
       });
     });
     super.initState();
+  }
+
+  getData() async{
+    await MyApp.storage.ready;
+    staffId = MyApp.storage.getItem("staffId");
   }
 
   @override
