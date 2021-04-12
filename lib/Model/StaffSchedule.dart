@@ -35,7 +35,9 @@ class ListStaffScheduleForSlot {
     this.bookingId,
     this.service,
     this.process,
+    this.processStep,
     this.customerInfo,
+    this.customerPhone,
   });
 
   String slotTime;
@@ -43,7 +45,9 @@ class ListStaffScheduleForSlot {
   int bookingId;
   Service service;
   Process process;
+  dynamic processStep;
   CustomerInfo customerInfo;
+  String customerPhone;
 
   factory ListStaffScheduleForSlot.fromJson(Map<String, dynamic> json) => ListStaffScheduleForSlot(
     slotTime: json["slotTime"],
@@ -51,7 +55,9 @@ class ListStaffScheduleForSlot {
     bookingId: json["bookingId"] == null ? null : json["bookingId"],
     service: json["service"] == null ? null : Service.fromJson(json["service"]),
     process: json["process"] == null ? null : Process.fromJson(json["process"]),
+    processStep: json["processStep"],
     customerInfo: json["customerInfo"] == null ? null : CustomerInfo.fromJson(json["customerInfo"]),
+    customerPhone: json["customerPhone"] == null ? null : json["customerPhone"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -60,7 +66,9 @@ class ListStaffScheduleForSlot {
     "bookingId": bookingId == null ? null : bookingId,
     "service": service == null ? null : service.toJson(),
     "process": process == null ? null : process.toJson(),
+    "processStep": processStep,
     "customerInfo": customerInfo == null ? null : customerInfo.toJson(),
+    "customerPhone": customerPhone == null ? null : customerPhone,
   };
 }
 

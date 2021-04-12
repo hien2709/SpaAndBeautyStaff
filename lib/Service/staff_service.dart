@@ -14,14 +14,16 @@ class StaffService {
 
   static Future<Staff> getStaffProfileById(id, token) async {
     try {
-      final response = await http.get(urlGetProfile + id.toString(), headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $token',
-      });
+      final response = await http.get(urlGetProfile + id.toString()
+      //     , headers: {
+      //   'Content-Type': 'application/json',
+      //   'Accept': 'application/json',
+      //   'Authorization': 'Bearer $token',
+      // }
+      );
       print(response.body);
       if (response.statusCode == 200) {
-        return Staff.fromJson(json.decode(response.body));
+        return staffFromJson(utf8.decode(response.bodyBytes));
       } else {
         throw Exception('Failed to load staffProfile');
       }

@@ -84,19 +84,16 @@ class _SignFormState extends State<SignForm> {
           "content-type": "application/json"
         },
         body: jsonEncode({"phoneNumber": phoneNumber, "password": password}));
+
     if (res.statusCode == 200) {
+
       jsonResponse = json.decode(res.body);
-
-      print(phoneNumber + password);
-      print("Response status: ${res.statusCode}");
-      print("Response body: ${res.body}");
-
       if (jsonResponse != null) {
         setState(() {
           isLoading = false;
         });
-        if (jsonResponse['errorMessage'] == null) {
 
+        if (jsonResponse['errorMessage'] == null) {
           MyApp.storage.setItem("token", jsonResponse['jsonWebToken']);
           MyApp.storage.setItem("staffId", jsonResponse['idAccount']);
           print("Staff ID: ${MyApp.storage.getItem("staffId")}");
@@ -104,7 +101,6 @@ class _SignFormState extends State<SignForm> {
               ? Navigator.pushNamed(context, BottomNavigation.routeName)
               : Navigator.pop(context, );
         } else {
-          print(jsonResponse['errorMessage']);
           if (jsonResponse['errorCode'] == 1 &&
               !errors.contains(kWrongPhoneNumberError)) {
             errors.add(kWrongPhoneNumberError);
@@ -120,8 +116,6 @@ class _SignFormState extends State<SignForm> {
       setState(() {
         isLoading = false;
       });
-
-      print("Response status ????:  ${res.body}");
     }
   }
 

@@ -36,21 +36,24 @@ class _ProfileFormState extends State<ProfileForm> {
     streetTextController = TextEditingController(text: staff.street);
   }
 
-  @override
-  void initState() {
-    super.initState();
 
-  }
 
   getData() async{
     await MyApp.storage.ready;
-    String staffId = MyApp.storage.getItem("staffId");
+    int staffId = MyApp.storage.getItem("staffId");
     String staffToken = MyApp.storage.getItem("token");
-    StaffService.getStaffProfileById(staffId, staffToken).then((value) => {
+    await StaffService.getStaffProfileById(staffId, staffToken).then((value) => {
       setState(() {
         staff = value;
+        print("Tri");
       }),
     });
+
+  }
+  @override
+  void initState() {
+    super.initState();
+    getData();
   }
 
   @override

@@ -13,7 +13,6 @@ class ProfilePic extends StatefulWidget {
 class _ProfilePicState extends State<ProfilePic> {
   PickedFile imageFile;
   final ImagePicker picker = ImagePicker();
-
   String image;
 
   void takePhoto(ImageSource source) async {
@@ -35,15 +34,12 @@ class _ProfilePicState extends State<ProfilePic> {
     await MyApp.storage.ready;
     int staffId = await MyApp.storage.getItem("staffId");
     String staffToken = await MyApp.storage.getItem("token");
-    print("staffId: $staffId");
-    print("token: $staffToken");
-    // StaffService.getStaffProfileById(staffId, staffToken).then((staff) => {
-    //       setState(() {
-    //         image = staff.image;
-    //         MyApp.storage.setItem("image", image);
-    //
-    //       }),
-    //     });
+    StaffService.getStaffProfileById(staffId, staffToken).then((staff) => {
+          setState(() {
+            image = staff.image;
+            MyApp.storage.setItem("image", image);
+          }),
+        });
   }
 
   @override

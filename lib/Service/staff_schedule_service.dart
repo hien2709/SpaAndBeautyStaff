@@ -12,20 +12,19 @@ class StaffScheduleService{
       "https://capstonever3.herokuapp.com/staff/get_schedule_of_one_staff/";
 
 
-  static Future<List<StaffSchedule>> getStaffSchedule(String id) async {
+  static Future<List<StaffSchedule>> getStaffSchedule(id) async {
     try {
-      print("dit me m thu null xem : $id");
-      final response = await http.get(urlStaffSchedule + id);
+      final response = await http.get(urlStaffSchedule + id.toString());
       print(response.body);
       print("status code la : "+response.statusCode.toString());
       if (response.statusCode == 200) {
         final  List<StaffSchedule> list = staffScheduleFromJson(utf8.decode(response.bodyBytes));
         return list;
       } else {
-        throw Exception('Failed to load staffProfile');
+        throw Exception('Failed to load staffSchedule');
       }
     } catch (e) {
-      throw Exception('Failed to load staffProfile');
+      throw Exception('Failed to load staffSchedule');
     }
   }
 }
